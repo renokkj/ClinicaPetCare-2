@@ -1,75 +1,202 @@
-clinica_vet_pp
+CREATE DATABASE clinicavet;
 
-create database if not exists clinica_vet_pp;
-use clinica_vet_pp;
+USE clinicavet;
 
-create table if not exists tutor (
-    id bigint primary key auto_increment,
-    nome_completo varchar(120) not null,
-    cpf varchar(20),
-    telefone varchar(20),
-    email varchar(120),
-    endereco varchar(150),
-    cidade varchar(80),
-    observacoes varchar(255)
+-- =====================================================
+-- TABELA TUTOR
+-- Relacionamento 1:N
+-- Um tutor pode possuir vários pets
+-- =====================================================
+
+CREATE TABLE tutor (
+
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    nome VARCHAR(120) NOT NULL,
+
+    cpf VARCHAR(14) UNIQUE,
+
+    telefone VARCHAR(20),
+
+    email VARCHAR(120),
+
+    endereco VARCHAR(200),
+
+    cidade VARCHAR(100),
+
+    estado VARCHAR(2),
+
+    cep VARCHAR(10),
+
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-create table if not exists pet (
-    id bigint primary key auto_increment,
-    nome varchar(80) not null,
-    especie varchar(60) not null,
-    raca varchar(80),
-    sexo varchar(20),
-    cor varchar(40),
-    data_nascimento date,
-    peso decimal(10,2),
-    porte varchar(30),
-    castrado boolean,
-    numero_microchip varchar(60),
-    alergias varchar(255),
-    status_vacinal varchar(80),
-    tutor_id bigint not null,
-    constraint fk_pet_tutor foreign key (tutor_id) references tutor(id) on delete cascade
+-- =====================================================
+-- TABELA PET
+-- Relacionamento N:1 com tutor
+-- Relacionamento 1:1 com prontuario
+-- =====================================================
+
+CREATE TABLE pet (
+
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    nome VARCHAR(120) NOT NULL,
+
+    especie VARCHAR(80),
+
+    raca VARCHAR(80),
+
+    sexo VARCHAR(20),
+
+    idade INT,
+
+    peso DECIMAL(10,2),
+
+    cor VARCHAR(60),
+
+    prioridade VARCHAR(20),
+
+    observacoes TEXT,
+
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    tutor_id BIGINT NOT NULL,
+
+    CONSTRAINT fk_pet_tutor
+        FOREIGN KEY (tutor_id)
+        REFERENCES tutor(id)
+        ON DELETE CASCADE
 );
 
-create table if not exists prontuario (
-    id bigint primary key auto_increment,
-    pet_id bigint not null unique,
-    historico_clinico varchar(255),
-    medicacao_continua varchar(255),
-    restricoes_alimentares varchar(255),
-    nivel_prioridade varchar(30),
-    ultima_atualizacao datetime,
-    constraint fk_prontuario_pet foreign key (pet_id) references pet(id) on delete cascade
+-- =====================================================
+-- TABELA PRONTUARIO
+-- Relacionamento 1:1 com pet
+-- =====================================================
+
+CREATE TABLE prontuario (
+
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    historico TEXT,
+
+    medicacoes TEXT,
+
+    restricoes TEXT,
+
+    observacoes TEXT,
+
+    ultima_triagem TIMESTAMP,
+
+    prioridade VARCHAR(20),
+
+    pet_id BIGINT UNIQUE,
+
+    CONSTRAINT fk_prontuario_pet
+        FOREIGN KEY (pet_id)
+        REFERENCES pet(id)
+        ON DELETE CASCADE
 );
 
-create table if not exists consulta (
-    id bigint primary key auto_increment,
-    pet_id bigint not null,
-    data_consulta datetime not null,
-    tipo_consulta varchar(80) not null,
-    status_consulta varchar(40),
-    observacoes varchar(255),
-    valor decimal(10,2),
-    constraint fk_consulta_pet foreign key (pet_id) references pet(id) on delete cascade
+-- =====================================================
+-- TABELA ATENDIMENTO
+-- Usada para o Decorator
+-- =====================================================
+
+CREATE TABLE atendimento (
+
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    descricao VARCHAR(255),
+
+    custo DECIMAL(10,2),
+
+    data_atendimento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    pet_id BIGINT NOT NULL,
+
+    CONSTRAINT fk_atendimento_pet
+        FOREIGN KEY (pet_id)
+        REFERENCES pet(id)
+        ON DELETE CASCADE
 );
 
-insert into tutor(nome_completo, cpf, telefone, email, endereco, cidade, observacoes)
-values
-('Ana Oliveira', '111.111.111-11', '(11) 99999-0001', 'ana@email.com', 'Rua das Flores, 100', 'Mogi das Cruzes', 'Cliente frequente'),
-('Carlos Souza', '222.222.222-22', '(11) 99999-0002', 'carlos@email.com', 'Av. Verde, 200', 'Suzano', 'Prefere contato por WhatsApp');
+-- =====================================================
+-- DADOS DE TESTE
+-- =====================================================
 
-insert into pet(nome, especie, raca, sexo, cor, data_nascimento, peso, porte, castrado, numero_microchip, alergias, status_vacinal, tutor_id)
-values
-('Luna', 'Canina', 'Shih Tzu', 'Fêmea', 'Branca', '2018-05-10', 6.20, 'Pequeno', true, 'MIC-001', 'Nenhuma', 'Em dia', 1),
-('Thor', 'Felina', 'SRD', 'Macho', 'Cinza', '2024-01-12', 2.80, 'Pequeno', false, 'MIC-002', 'Ração com corante', 'Pendente', 2);
+INSERT INTO tutor (
+    nome,
+    cpf,
+    telefone,
+    email,
+    endereco,
+    cidade,
+    estado,
+    cep
+)
+VALUES (
+    'Carlos Silva',
+    '123.456.789-00',
+    '(11)99999-9999',
+    'carlos@email.com',
+    'Rua Central, 100',
+    'Mogi das Cruzes',
+    'SP',
+    '08700-000'
+);
 
-insert into prontuario(pet_id, historico_clinico, medicacao_continua, restricoes_alimentares, nivel_prioridade, ultima_atualizacao)
-values
-(1, 'Pet com acompanhamento anual.', 'Não informada', 'Não informada', 'ALTA', now()),
-(2, 'Pet filhote em adaptação.', 'Não informada', 'Ração sem corante', 'MÉDIA', now());
+INSERT INTO pet (
+    nome,
+    especie,
+    raca,
+    sexo,
+    idade,
+    peso,
+    cor,
+    prioridade,
+    observacoes,
+    tutor_id
+)
+VALUES (
+    'Thor',
+    'Canino',
+    'Labrador',
+    'Macho',
+    5,
+    28.5,
+    'Caramelo',
+    'MEDIA',
+    'Pet saudável',
+    1
+);
 
-insert into consulta(pet_id, data_consulta, tipo_consulta, status_consulta, observacoes, valor)
-values
-(1, now(), 'Check-up', 'Agendada', 'Consulta de rotina', 120.00),
-(2, now(), 'Vacinação', 'Agendada', 'Primeira dose', 95.00);
+INSERT INTO prontuario (
+    historico,
+    medicacoes,
+    restricoes,
+    observacoes,
+    ultima_triagem,
+    prioridade,
+    pet_id
+)
+VALUES (
+    'Sem doenças anteriores',
+    'Nenhuma',
+    'Nenhuma',
+    'Prontuário criado automaticamente',
+    NOW(),
+    'MEDIA',
+    1
+);
+
+INSERT INTO atendimento (
+    descricao,
+    custo,
+    pet_id
+)
+VALUES (
+    'Consulta Veterinária + Vacinação',
+    150.00,
+    1
+);
