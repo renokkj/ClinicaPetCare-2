@@ -121,4 +121,4 @@ O sistema possui endpoint REST retornando JSON.
 ## Endpoint:
 
 ```http
-GET /api/pets
+
