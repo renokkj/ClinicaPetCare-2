@@ -29,6 +29,14 @@
                 <td class="actions">
                     <a class="link-btn" href="${pageContext.request.contextPath}/app?entidade=consulta&acao=buscarPorId&id=${consulta.id}">Ver</a>
                     <a class="link-btn" href="${pageContext.request.contextPath}/app?entidade=consulta&acao=editar&id=${consulta.id}">Editar</a>
+                    
+                    <c:if test="${consulta.statusConsulta != 'FINALIZADA'}">
+                        <a class="link-btn success"
+                           href="${pageContext.request.contextPath}/app?entidade=consulta&acao=finalizar&id=${consulta.id}">
+                            Finalizar
+                        </a>
+                    </c:if>
+                    
                     <form method="post" action="${pageContext.request.contextPath}/app?entidade=consulta&acao=deletar&id=${consulta.id}" class="inline-form">
                         <button class="link-btn danger" type="submit">Excluir</button>
                     </form>

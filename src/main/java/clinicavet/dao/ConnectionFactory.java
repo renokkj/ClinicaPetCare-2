@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public final class ConnectionFactory {
-    private static final String URL = System.getProperty("clinicavet.db.url", "jdbc:mysql://localhost:3306/clinica_vet_pp?useSSL=false&serverTimezone=UTC");
+    private static final String URL = System.getProperty("clinicavet.db.url", "jdbc:mysql://localhost:3306/clinicavet?useSSL=false&serverTimezone=UTC");
     private static final String USER = System.getProperty("clinicavet.db.user", "root");
     private static final String PASSWORD = System.getProperty("clinicavet.db.password", "1234");
 

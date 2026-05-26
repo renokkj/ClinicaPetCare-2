@@ -32,6 +32,7 @@ import clinicavet.dao.impl.ConsultaDaoMysql;
 import clinicavet.dao.impl.PetDaoMysql;
 import clinicavet.dao.impl.ProntuarioDaoMysql;
 import clinicavet.dao.impl.TutorDaoMysql;
+import clinicavet.command.consulta.FinalizarConsultaCommand;
 
 public class CommandFactory {
 
@@ -89,6 +90,8 @@ public class CommandFactory {
                 return new EditarConsultaCommand(consultaDao, petDao);
             case "consulta:atualizar":
                 return new AtualizarConsultaCommand(consultaDao);
+            case "consulta:finalizar":
+                return new FinalizarConsultaCommand(consultaDao);
             case "consulta:deletar":
                 return new DeletarConsultaCommand(consultaDao);
 

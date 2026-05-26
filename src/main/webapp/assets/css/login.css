@@ -1,0 +1,197 @@
+         *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body{
+            height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:#eef5f0;
+            overflow:hidden;
+            position:relative;
+        }
+
+        body::before{
+            content:"";
+            position:absolute;
+            width:500px;
+            height:500px;
+            background:#d9ecdf;
+            border-radius:50%;
+            top:-180px;
+            left:-180px;
+        }
+
+        body::after{
+            content:"";
+            position:absolute;
+            width:400px;
+            height:400px;
+            background:#d9ecdf;
+            border-radius:50%;
+            bottom:-150px;
+            right:-150px;
+        }
+
+        .login-container{
+            width:900px;
+            height:520px;
+            background:white;
+            border-radius:28px;
+            overflow:hidden;
+            display:flex;
+            box-shadow:0 15px 40px rgba(0,0,0,0.08);
+            z-index:2;
+        }
+
+        .left{
+            width:45%;
+            background:linear-gradient(180deg,#dff1e5,#cce7d5);
+            padding:40px;
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+            position:relative;
+        }
+
+        .left::before{
+            content:"";
+            position:absolute;
+            width:350px;
+            height:350px;
+            background:rgba(255,255,255,0.2);
+            border-radius:50%;
+            bottom:-120px;
+            right:-120px;
+        }
+
+        .logo{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:18px;
+            
+            z-index:2;
+            margin-top:10px;
+        }
+
+        .logo-icon{
+            width:55px;
+            height:55px;
+            border-radius:18px;
+            background:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:36px;
+            box-shadow:0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .logo-text h1{
+            font-size:42px;
+            color:#123524;
+
+            font-weight:800;
+            margin:0;
+        }
+
+        .pet-emoji{
+           
+            font-size:120px;
+            text-align:center;
+            z-index:2;
+
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            gap:10px;
+
+            margin-top:20px;
+
+        }
+
+        .right{
+            width:55%;
+            padding:60px;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+        }
+
+        .right h2{
+            font-size:38px;
+            color:#173d2b;
+            margin-bottom:10px;
+        }
+
+        .right p{
+            color:#6d7d74;
+            margin-bottom:35px;
+        }
+
+        .input-group{
+            margin-bottom:20px;
+        }
+
+        .input-group label{
+            display:block;
+            margin-bottom:8px;
+            color:#173d2b;
+            font-weight:600;
+        }
+
+        .input-group input{
+            width:100%;
+            padding:16px;
+            border:2px solid #dce8df;
+            border-radius:14px;
+            font-size:15px;
+            transition:0.2s;
+            outline:none;
+        }
+
+        .input-group input:focus{
+            border-color:#2e8b57;
+        }
+
+        .btn-login{
+            width:100%;
+            padding:16px;
+            border:none;
+            border-radius:14px;
+            background:#2e8b57;
+            color:white;
+            font-size:16px;
+            font-weight:700;
+            cursor:pointer;
+            transition:0.2s;
+            margin-top:10px;
+        }
+
+        .btn-login:hover{
+            background:#246b44;
+            transform:translateY(-2px);
+        }
+
+        .footer-text{
+            margin-top:25px;
+            text-align:center;
+            color:#6f7f76;
+            font-size:14px;
+        }
+
+        .error{
+            background:#ffe9e9;
+            color:#d33;
+            padding:14px;
+            border-radius:12px;
+            margin-bottom:20px;
+            font-weight:600;
+        }
+
+
