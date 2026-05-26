@@ -16,48 +16,90 @@ public class PetApiServlet extends HttpServlet {
     private final PetDao petDao = new PetDaoMysql();
 
     @Override
-    protected void doGet(HttpServletRequest req,
-                         HttpServletResponse resp)
-            throws ServletException, IOException {
+protected void doGet(HttpServletRequest req,
+                     HttpServletResponse resp)
+        throws ServletException, IOException {
 
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
+    resp.setContentType("application/json");
+    resp.setCharacterEncoding("UTF-8");
 
-        PrintWriter out = resp.getWriter();
+    PrintWriter out = resp.getWriter();
 
-        try {
+    try {
 
-            List<Pet> pets = petDao.listarTodos();
+        List<Pet> pets = petDao.listarTodos();
 
-            StringBuilder json = new StringBuilder();
-            json.append("[");
+        StringBuilder json = new StringBuilder();
 
-            for (int i = 0; i < pets.size(); i++) {
+        json.append("[");
 
-                Pet pet = pets.get(i);
+        for (int i = 0; i < pets.size(); i++) {
 
-                json.append("{");
-                json.append("\"id\":").append(pet.getId()).append(",");
-                json.append("\"nome\":\"")
-                        .append(pet.getNome())
-                        .append("\"");
+            Pet pet = pets.get(i);
 
-                json.append("}");
+            json.append("{");
 
-                if (i < pets.size() - 1) {
-                    json.append(",");
-                }
+            json.append("\"id\":")
+                    .append(pet.getId())
+                    .append(",");
+
+            json.append("\"nome\":\"")
+                    .append(pet.getNome())
+                    .append("\",");
+
+            json.append("\"especie\":\"")
+                    .append(pet.getEspecie())
+                    .append("\",");
+
+            json.append("\"raca\":\"")
+                    .append(pet.getRaca())
+                    .append("\",");
+
+            json.append("\"sexo\":\"")
+                    .append(pet.getSexo())
+                    .append("\",");
+
+            json.append("\"cor\":\"")
+                    .append(pet.getCor())
+                    .append("\",");
+
+            json.append("\"peso\":")
+                    .append(pet.getPeso())
+                    .append(",");
+
+            json.append("\"porte\":\"")
+                    .append(pet.getPorte())
+                    .append("\",");
+
+            json.append("\"castrado\":")
+                    .append(pet.isCastrado())
+                    .append(",");
+
+            json.append("\"statusVacinal\":\"")
+                    .append(pet.getStatusVacinal())
+                    .append("\",");
+
+            json.append("\"tutorId\":")
+                    .append(pet.getTutorId());
+
+            json.append("}");
+
+            if (i < pets.size() - 1) {
+                json.append(",");
             }
+        }
 
-            json.append("]");
+        json.append("]");
 
-            out.print(json);
+        out.print(json);
 
-        } catch (Exception e) {
+    } catch (Exception e) {
 
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        resp.setStatus(
+                HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+        );
 
-            out.print("{\"erro\":\"Erro interno\"}");
+        out.print("{\"erro\":\"Erro interno ao listar pets\"}");
         }
     }
 }

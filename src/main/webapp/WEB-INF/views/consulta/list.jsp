@@ -14,7 +14,7 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th><th>Pet ID</th><th>Data</th><th>Tipo</th><th>Status</th><th>Valor</th><th>Ações</th>
+                <th>ID</th><th>Pet</th><th>Data</th><th>Tipo</th><th>Status</th><th>Valor</th><th>Ações</th>
             </tr>
         </thead>
         <tbody>
