@@ -24,7 +24,11 @@
                 <td>${consulta.petId}</td>
                 <td>${consulta.dataConsulta}</td>
                 <td>${consulta.tipoConsulta}</td>
-                <td>${consulta.statusConsulta}</td>
+                <td>
+                    <span class="status-badge ${consulta.statusConsulta.toLowerCase()}">
+                        ${consulta.statusConsulta}
+                    </span>
+                </td>
                 <td>${consulta.valor}</td>
                 <td class="actions">
                     <a class="link-btn" href="${pageContext.request.contextPath}/app?entidade=consulta&acao=buscarPorId&id=${consulta.id}">Ver</a>

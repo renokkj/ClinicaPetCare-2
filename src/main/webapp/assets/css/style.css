@@ -497,3 +497,28 @@ body {
     color: var(--text);
     
 }
+
+.status-badge{
+    padding:8px 14px;
+    border-radius:999px;
+
+    font-size:13px;
+    font-weight:700;
+
+    display:inline-block;
+}
+
+.status-badge.agendada{
+    background:#fff4d6;
+    color:#8a6700;
+}
+
+.status-badge.finalizada{
+    background:#dff5e6;
+    color:#146746;
+}
+
+.status-badge.cancelada{
+    background:#ffe2e2;
+    color:#a12828;
+}
