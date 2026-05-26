@@ -21,7 +21,7 @@
         <c:forEach var="consulta" items="${consultas}">
             <tr>
                 <td>${consulta.id}</td>
-                <td>${consulta.petId}</td>
+                <td>${nomesPets[consulta.petId]}</td>
                 <td>${consulta.dataConsulta}</td>
                 <td>${consulta.tipoConsulta}</td>
                 <td>
