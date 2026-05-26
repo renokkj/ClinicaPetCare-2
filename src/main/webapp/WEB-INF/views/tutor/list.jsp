@@ -28,8 +28,14 @@
                 <td class="actions">
                     <a class="link-btn" href="${pageContext.request.contextPath}/app?entidade=tutor&acao=buscarPorId&id=${tutor.id}">Ver</a>
                     <a class="link-btn" href="${pageContext.request.contextPath}/app?entidade=tutor&acao=editar&id=${tutor.id}">Editar</a>
-                    <form method="post" action="${pageContext.request.contextPath}/app?entidade=tutor&acao=deletar&id=${tutor.id}" class="inline-form">
-                        <button class="link-btn danger" type="submit">Excluir</button>
+                    <form method="post"
+                          action="${pageContext.request.contextPath}/app?entidade=tutor&acao=deletar&id=${tutor.id}"
+                          class="inline-form"
+                          onsubmit="return confirm('Excluir esse tutor também pode afetar registro vinculador. Deseja continuar?');">
+                        <button class="link-btn danger" type="submit">
+                            Excluir
+                        </button>
+
                     </form>
                 </td>
             </tr>

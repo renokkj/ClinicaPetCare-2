@@ -32,8 +32,14 @@
                     <form method="post" action="${pageContext.request.contextPath}/app?entidade=pet&acao=automatizarTriagem&id=${pet.id}" class="inline-form">
                         <button class="link-btn" type="submit">Triagem</button>
                     </form>
-                    <form method="post" action="${pageContext.request.contextPath}/app?entidade=pet&acao=deletar&id=${pet.id}" class="inline-form">
-                        <button class="link-btn danger" type="submit">Excluir</button>
+                    <form method="post"
+                          action="${pageContext.request.contextPath}/app?entidade=pet&acao=deletar&id=${pet.id}"
+                          class="inline-form"
+                          onsubmit="return confirm('Esta ação removerá o pet permanentemente. Deseja continuar?');">
+                        <button class="link-btn danger" type="submit">
+                            Excluir
+                        </button>
+
                     </form>
                 </td>
             </tr>

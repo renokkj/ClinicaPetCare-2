@@ -492,7 +492,8 @@ body {
     overflow-x: hidden;
 }
 
-.link-btn.success{
-    background:#dff5e6;
-    color:#146746;
+.link-btn.success{    
+    background: var(--bg-soft);
+    color: var(--text);
+    
 }
