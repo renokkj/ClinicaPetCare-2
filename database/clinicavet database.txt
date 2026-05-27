@@ -1,0 +1,262 @@
+clinicavet
+
+DROP DATABASE IF EXISTS clinicavet;
+
+CREATE DATABASE clinicavet;
+
+USE clinicavet;
+
+-- =====================================================
+-- TABELA TUTOR
+-- =====================================================
+
+CREATE TABLE tutor (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    nome_completo VARCHAR(150) NOT NULL,
+    cpf VARCHAR(20),
+    telefone VARCHAR(30),
+    email VARCHAR(100),
+
+    endereco VARCHAR(255),
+    cidade VARCHAR(100),
+
+    observacoes TEXT
+);
+
+-- =====================================================
+-- TABELA PET
+-- =====================================================
+
+CREATE TABLE pet (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    nome VARCHAR(100) NOT NULL,
+    especie VARCHAR(50),
+    raca VARCHAR(50),
+
+    sexo VARCHAR(20),
+    cor VARCHAR(50),
+
+    data_nascimento DATE,
+
+    peso DECIMAL(10,2),
+
+    porte VARCHAR(50),
+
+    castrado BOOLEAN,
+
+    numero_microchip VARCHAR(100),
+
+    alergias TEXT,
+
+    status_vacinal VARCHAR(100),
+
+    tutor_id BIGINT,
+
+    CONSTRAINT fk_pet_tutor
+        FOREIGN KEY (tutor_id)
+        REFERENCES tutor(id)
+);
+
+-- =====================================================
+-- TABELA CONSULTA
+-- =====================================================
+
+CREATE TABLE consulta (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    pet_id BIGINT NOT NULL,
+
+    data_consulta TIMESTAMP,
+
+    tipo_consulta VARCHAR(100),
+
+    status_consulta VARCHAR(100),
+
+    observacoes TEXT,
+
+    valor DECIMAL(10,2),
+
+    CONSTRAINT fk_consulta_pet
+        FOREIGN KEY (pet_id)
+        REFERENCES pet(id)
+);
+
+-- =====================================================
+-- TABELA PRONTUARIO
+-- =====================================================
+
+CREATE TABLE prontuario (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    pet_id BIGINT NOT NULL,
+
+    historico_clinico TEXT,
+
+    medicacao_continua TEXT,
+
+    restricoes_alimentares TEXT,
+
+    nivel_prioridade VARCHAR(50),
+
+    ultima_atualizacao TIMESTAMP,
+
+    CONSTRAINT fk_prontuario_pet
+        FOREIGN KEY (pet_id)
+        REFERENCES pet(id)
+);
+
+-- =====================================================
+-- TABELA USUARIO
+-- =====================================================
+
+CREATE TABLE usuario (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    nome VARCHAR(100),
+
+    email VARCHAR(100),
+
+    senha VARCHAR(100)
+);
+
+-- =====================================================
+-- DADOS INICIAIS
+-- =====================================================
+
+INSERT INTO usuario(nome, email, senha)
+VALUES
+(
+    'Administrador',
+    'admin@clinicavet.com',
+    '123456'
+);
+
+INSERT INTO tutor(
+    nome_completo,
+    cpf,
+    telefone,
+    email,
+    endereco,
+    cidade,
+    observacoes
+)
+VALUES
+(
+    'Carlos Silva',
+    '111.111.111-11',
+    '(11)99999-1111',
+    'carlos@email.com',
+    'Rua A',
+    'São Paulo',
+    'Tutor antigo'
+),
+(
+    'Marina Souza',
+    '222.222.222-22',
+    '(11)98888-2222',
+    'marina@email.com',
+    'Rua B',
+    'Mogi das Cruzes',
+    'Cliente VIP'
+);
+
+INSERT INTO pet(
+    nome,
+    especie,
+    raca,
+    sexo,
+    cor,
+    data_nascimento,
+    peso,
+    porte,
+    castrado,
+    numero_microchip,
+    alergias,
+    status_vacinal,
+    tutor_id
+)
+VALUES
+(
+    'Thor',
+    'Canino',
+    'Golden Retriever',
+    'Macho',
+    'Dourado',
+    '2020-01-10',
+    28.50,
+    'Grande',
+    true,
+    'MICRO123',
+    'Nenhuma',
+    'Em dia',
+    1
+),
+(
+    'Minnie',
+    'Felino',
+    'Siamês',
+    'Fêmea',
+    'Branco',
+    '2022-03-05',
+    4.20,
+    'Pequeno',
+    false,
+    'MICRO456',
+    'Ração específica',
+    'Pendente',
+    2
+);
+
+INSERT INTO consulta(
+    pet_id,
+    data_consulta,
+    tipo_consulta,
+    status_consulta,
+    observacoes,
+    valor
+)
+VALUES
+(
+    1,
+    NOW(),
+    'Consulta de rotina',
+    'AGENDADA',
+    'Animal saudável',
+    150.00
+),
+(
+    2,
+    NOW(),
+    'Vacinação',
+    'FINALIZADA',
+    'Vacina aplicada',
+    90.00
+);
+
+INSERT INTO prontuario(
+    pet_id,
+    historico_clinico,
+    medicacao_continua,
+    restricoes_alimentares,
+    nivel_prioridade,
+    ultima_atualizacao
+)
+VALUES
+(
+    1,
+    'Histórico saudável',
+    'Nenhuma',
+    'Nenhuma',
+    'ALTA',
+    NOW()
+),
+(
+    2,
+    'Acompanhamento veterinário',
+    'Vitaminas',
+    'Ração especial',
+    'MEDIA',
+    NOW()
+);
