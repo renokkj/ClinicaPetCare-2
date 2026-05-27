@@ -3,6 +3,7 @@ package clinicavet.api;
 import clinicavet.dao.PetDao;
 import clinicavet.dao.impl.PetDaoMysql;
 import clinicavet.model.Pet;
+
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import jakarta.servlet.ServletException;
@@ -30,7 +31,9 @@ public class PetApiServlet extends HttpServlet {
 
             String idParam = req.getParameter("id");
 
+            // =========================
             // BUSCAR PET POR ID
+            // =========================
             if (idParam != null) {
 
                 Long id = Long.parseLong(idParam);
@@ -46,18 +49,24 @@ public class PetApiServlet extends HttpServlet {
                     return;
                 }
 
-                String json = "{"
+                String json =
+                        "{"
                         + "\"id\":" + pet.getId() + ","
                         + "\"nome\":\"" + pet.getNome() + "\","
                         + "\"especie\":\"" + pet.getEspecie() + "\","
-                        + "\"raca\":\"" + pet.getRaca() + "\""
+                        + "\"raca\":\"" + pet.getRaca() + "\","
+                        + "\"sexo\":\"" + pet.getSexo() + "\","
+                        + "\"porte\":\"" + pet.getPorte() + "\","
+                        + "\"statusVacinal\":\"" + pet.getStatusVacinal() + "\","
+                        + "\"castrado\":" + pet.isCastrado()
                         + "}";
 
                 out.print(json);
-
             }
 
+            // =========================
             // LISTAR TODOS
+            // =========================
             else {
 
                 List<Pet> pets = petDao.listarTodos();
@@ -82,6 +91,22 @@ public class PetApiServlet extends HttpServlet {
 
                     json.append("\"especie\":\"")
                             .append(pet.getEspecie())
+                            .append("\",");
+
+                    json.append("\"raca\":\"")
+                            .append(pet.getRaca())
+                            .append("\",");
+
+                    json.append("\"sexo\":\"")
+                            .append(pet.getSexo())
+                            .append("\",");
+
+                    json.append("\"porte\":\"")
+                            .append(pet.getPorte())
+                            .append("\",");
+
+                    json.append("\"statusVacinal\":\"")
+                            .append(pet.getStatusVacinal())
                             .append("\"");
 
                     json.append("}");
@@ -99,9 +124,13 @@ public class PetApiServlet extends HttpServlet {
 
         } catch (Exception e) {
 
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.setStatus(
+                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            );
 
-            out.print("{\"erro\":\"Erro interno da API\"}");
+            out.print(
+                    "{\"erro\":\"Erro interno da API\"}"
+            );
         }
     }
 }

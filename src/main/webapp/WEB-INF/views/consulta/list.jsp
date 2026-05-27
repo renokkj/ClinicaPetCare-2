@@ -1,3 +1,4 @@
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ include file="/WEB-INF/views/fragments/header.jspf" %>
@@ -22,7 +23,11 @@
             <tr>
                 <td>${consulta.id}</td>
                 <td>${nomesPets[consulta.petId]}</td>
-                <td>${consulta.dataConsulta}</td>
+                <td>
+                    ${consulta.dataConsulta.format(
+                        DateTimeFormatter.ofPattern("dd/MM/yyyy 'às' HH:mm")
+                    )}
+                </td>
                 <td>${consulta.tipoConsulta}</td>
                 <td>
                     <span class="status-badge ${consulta.statusConsulta.toLowerCase()}">
