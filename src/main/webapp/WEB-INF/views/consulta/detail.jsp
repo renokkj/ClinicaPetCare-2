@@ -58,15 +58,26 @@
         Serviços adicionais
     </h3>
 
-    <p>
-        <strong>Serviços inclusos:</strong>
-        ${descricaoAtendimento}
-    </p>
+    <div class="decorator-box">
 
-    <p>
-        <strong>Valor final do atendimento:</strong>
-        R$ ${custoAtendimento}
-    </p>
+        <h3>Serviços adicionais</h3>
+
+        <ul class="decorator-list">
+            <li>✓ Consulta veterinária</li>
+            <li>✓ Exames laboratoriais</li>
+            <li>✓ Vacinação</li>
+        </ul>
+
+        <div class="decorator-values">
+            <p><strong>Valor base:</strong> R$ 100.0</p>
+            <p><strong>Adicionais:</strong> R$ 170.0</p>
+            <p class="total">
+                <strong>Total final:</strong>
+                R$ ${custoAtendimento}
+            </p>
+        </div>
+
+    </div>
 
 </div>
 
