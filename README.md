@@ -92,13 +92,29 @@ Endpoint disponível:
 /api/pets
 ```
 
-Permite:
-- listar pets
-- buscar pets por ID
-- retorno em JSON
+Funcionalidades:
+- listar pets cadastrados
+- buscar pet por ID
+- resposta em JSON
 - tratamento de erros HTTP
+- retorno com status e timestamp
 
----
+Exemplo de resposta:
+
+```json
+{
+  "status":"success",
+  "timestamp":"2026-05-28T23:30:00",
+  "total":2,
+  "data":[
+    {
+      "id":1,
+      "nome":"Thor",
+      "especie":"Cachorro"
+    }
+  ]
+}
+```
 
 # Padrões de projeto utilizados
 

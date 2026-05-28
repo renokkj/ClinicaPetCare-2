@@ -10,6 +10,7 @@ import jakarta.servlet.ServletException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @WebServlet("/api/pets")
@@ -31,9 +32,7 @@ public class PetApiServlet extends HttpServlet {
 
             String idParam = req.getParameter("id");
 
-            // =========================
             // BUSCAR PET POR ID
-            // =========================
             if (idParam != null) {
 
                 Long id = Long.parseLong(idParam);
@@ -44,93 +43,97 @@ public class PetApiServlet extends HttpServlet {
 
                     resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
 
-                    out.print("{\"erro\":\"Pet nao encontrado\"}");
+                    out.print("""
+                        {
+                          "status":"error",
+                          "message":"Pet nao encontrado"
+                        }
+                    """);
 
                     return;
                 }
 
-                String json =
-                        "{"
-                        + "\"id\":" + pet.getId() + ","
-                        + "\"nome\":\"" + pet.getNome() + "\","
-                        + "\"especie\":\"" + pet.getEspecie() + "\","
-                        + "\"raca\":\"" + pet.getRaca() + "\","
-                        + "\"sexo\":\"" + pet.getSexo() + "\","
-                        + "\"porte\":\"" + pet.getPorte() + "\","
-                        + "\"statusVacinal\":\"" + pet.getStatusVacinal() + "\","
-                        + "\"castrado\":" + pet.isCastrado()
-                        + "}";
+                String json = """
+                    {
+                      "status":"success",
+                      "timestamp":"%s",
+                      "data":{
+                        "id":%d,
+                        "nome":"%s",
+                        "especie":"%s",
+                        "raca":"%s"
+                      }
+                    }
+                    """.formatted(
+                        LocalDateTime.now(),
+                        pet.getId(),
+                        pet.getNome(),
+                        pet.getEspecie(),
+                        pet.getRaca()
+                );
 
                 out.print(json);
+
             }
 
-            // =========================
             // LISTAR TODOS
-            // =========================
             else {
 
                 List<Pet> pets = petDao.listarTodos();
 
-                StringBuilder json = new StringBuilder();
+                StringBuilder petsJson = new StringBuilder();
 
-                json.append("[");
+                petsJson.append("[");
 
                 for (int i = 0; i < pets.size(); i++) {
 
                     Pet pet = pets.get(i);
 
-                    json.append("{");
-
-                    json.append("\"id\":")
-                            .append(pet.getId())
-                            .append(",");
-
-                    json.append("\"nome\":\"")
-                            .append(pet.getNome())
-                            .append("\",");
-
-                    json.append("\"especie\":\"")
-                            .append(pet.getEspecie())
-                            .append("\",");
-
-                    json.append("\"raca\":\"")
-                            .append(pet.getRaca())
-                            .append("\",");
-
-                    json.append("\"sexo\":\"")
-                            .append(pet.getSexo())
-                            .append("\",");
-
-                    json.append("\"porte\":\"")
-                            .append(pet.getPorte())
-                            .append("\",");
-
-                    json.append("\"statusVacinal\":\"")
-                            .append(pet.getStatusVacinal())
-                            .append("\"");
-
-                    json.append("}");
+                    petsJson.append("""
+                        {
+                          "id":%d,
+                          "nome":"%s",
+                          "especie":"%s"
+                        }
+                        """.formatted(
+                            pet.getId(),
+                            pet.getNome(),
+                            pet.getEspecie()
+                    ));
 
                     if (i < pets.size() - 1) {
-
-                        json.append(",");
+                        petsJson.append(",");
                     }
                 }
 
-                json.append("]");
+                petsJson.append("]");
 
-                out.print(json.toString());
+                String jsonFinal = """
+                    {
+                      "status":"success",
+                      "timestamp":"%s",
+                      "total":%d,
+                      "data":%s
+                    }
+                    """.formatted(
+                        LocalDateTime.now(),
+                        pets.size(),
+                        petsJson
+                );
+
+                out.print(jsonFinal);
             }
 
         } catch (Exception e) {
 
-            resp.setStatus(
-                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR
-            );
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 
-            out.print(
-                    "{\"erro\":\"Erro interno da API\"}"
-            );
+            out.print("""
+                {
+                  "status":"error",
+                  "message":"Erro interno da API"
+                }
+            """);
         }
     }
 }
