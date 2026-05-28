@@ -31,7 +31,28 @@
         <label>Peso<input type="number" step="0.01" name="peso" value="${pet.peso}"></label>
         <label>Porte<input type="text" name="porte" value="${pet.porte}"></label>
         <label>Número do microchip<input type="text" name="numeroMicrochip" value="${pet.numeroMicrochip}"></label>
-        <label>Status vacinal<input type="text" name="statusVacinal" value="${pet.statusVacinal}"></label>
+        <label>
+            Status vacinal
+
+            <select name="statusVacinal">
+
+                <option value="Em dia"
+                    ${pet.statusVacinal == 'Em dia' ? 'selected' : ''}>
+                    Em dia
+                </option>
+
+                <option value="Atrasada"
+                    ${pet.statusVacinal == 'Atrasada' ? 'selected' : ''}>
+                    Atrasada
+                </option>
+
+                <option value="Pendente"
+                    ${pet.statusVacinal == 'Pendente' ? 'selected' : ''}>
+                    Pendente
+                </option>
+
+            </select>
+        </label>
 
         <label>Tutor
             <select name="tutorId" required>

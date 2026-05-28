@@ -29,7 +29,7 @@
 
     <p>
         <strong>Data:</strong>
-        ${consulta.dataConsulta}
+        ${dataConsultaFormatada}
     </p>
 
     <p>
@@ -43,7 +43,7 @@
     </p>
 
     <p>
-        <strong>Valor:</strong>
+        <strong>Valor inicial:</strong>
         R$ ${consulta.valor}
     </p>
 
@@ -60,7 +60,7 @@
 
     <div class="decorator-box">
 
-        <h3>Serviços adicionais</h3>
+        <h3>Composição do atendimento</h3>
 
         <ul class="decorator-list">
             <li>✓ Consulta veterinária</li>
@@ -69,7 +69,7 @@
         </ul>
 
         <div class="decorator-values">
-            <p><strong>Valor base:</strong> R$ 100.0</p>
+            <p><strong>Valor base:</strong> R$ ${consulta.valor}</p>
             <p><strong>Adicionais:</strong> R$ 170.0</p>
             <p class="total">
                 <strong>Total final:</strong>

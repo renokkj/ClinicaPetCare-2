@@ -10,7 +10,7 @@ public class AtendimentoDecoratorTest {
     public void deveAdicionarExameEVacinacao() {
 
         Atendimento atendimento =
-                new ConsultaBasica();
+                new ConsultaBasica(100.0);
 
         atendimento =
                 new ExameDecorator(atendimento);
@@ -19,7 +19,7 @@ public class AtendimentoDecoratorTest {
                 new VacinacaoDecorator(atendimento);
 
         assertEquals(
-                "Consulta Veterinaria + Exames + Vacinacao",
+                "Consulta Veterinária + Exames + Vacinação",
                 atendimento.getDescricao()
         );
 

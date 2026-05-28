@@ -15,6 +15,8 @@ import clinicavet.util.RequestUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.time.format.DateTimeFormatter;
+
 public class BuscarConsultaPorIdCommand extends AbstractCommand {
 
     private final ConsultaDao consultaDao;
@@ -46,9 +48,30 @@ public class BuscarConsultaPorIdCommand extends AbstractCommand {
                 petDao.listarTodos()
         );
 
+        // FORMATAR DATA
+        if (consulta.getDataConsulta() != null) {
+
+            DateTimeFormatter formatter =
+                    DateTimeFormatter.ofPattern(
+                            "dd/MM/yyyy 'às' HH:mm"
+                    );
+
+            String dataConsultaFormatada =
+                    formatter.format(
+                            consulta.getDataConsulta()
+                    );
+
+            request.setAttribute(
+                    "dataConsultaFormatada",
+                    dataConsultaFormatada
+            );
+        }
+
         // DECORATOR
         Atendimento atendimento =
-                new ConsultaBasica();
+                new ConsultaBasica(
+                        consulta.getValor().doubleValue()
+                );
 
         atendimento =
                 new ExameDecorator(atendimento);

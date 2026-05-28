@@ -24,7 +24,31 @@
                 <td>${pet.nome}</td>
                 <td>${pet.especie}</td>
                 <td>${pet.raca}</td>
-                <td>${pet.statusVacinal}</td>
+                <td>
+
+            <c:choose>
+
+                <c:when test="${pet.statusVacinal == 'Em dia'}">
+                    <span class="status-badge em-dia">
+                        ${pet.statusVacinal}
+                    </span>
+                </c:when>
+
+                <c:when test="${pet.statusVacinal == 'Atrasada'}">
+                    <span class="status-badge atrasada">
+                        ${pet.statusVacinal}
+                    </span>
+                </c:when>
+
+                <c:otherwise>
+                    <span class="status-badge pendente">
+                        ${pet.statusVacinal}
+                    </span>
+                </c:otherwise>
+
+            </c:choose>
+
+                </td>
                 <td>${pet.tutorId}</td>
                 <td class="actions">
                     <a class="link-btn" href="${pageContext.request.contextPath}/app?entidade=pet&acao=buscarPorId&id=${pet.id}">Ver</a>

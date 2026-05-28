@@ -28,7 +28,32 @@
         <p><strong>Castrado:</strong> ${pet.castrado ? 'Sim' : 'Não'}</p>
         <p><strong>Microchip:</strong> ${pet.numeroMicrochip}</p>
         <p><strong>Alergias:</strong> ${pet.alergias}</p>
-        <p><strong>Status vacinal:</strong> ${pet.statusVacinal}</p>
+        <p>
+            <strong>Status vacinal:</strong>
+
+            <c:choose>
+
+                <c:when test="${pet.statusVacinal == 'Em dia'}">
+                    <span class="status-badge em-dia">
+                        ${pet.statusVacinal}
+                    </span>
+                </c:when>
+
+                <c:when test="${pet.statusVacinal == 'Atrasada'}">
+                    <span class="status-badge atrasada">
+                        ${pet.statusVacinal}
+                    </span>
+                </c:when>
+
+                <c:otherwise>
+                    <span class="status-badge pendente">
+                        ${pet.statusVacinal}
+                    </span>
+                </c:otherwise>
+
+            </c:choose>
+
+        </p>
         <p><strong>Tutor ID:</strong> ${pet.tutorId}</p>
     </div>
 
@@ -40,7 +65,10 @@
                 <p><strong>Histórico:</strong> ${prontuario.historicoClinico}</p>
                 <p><strong>Medicação contínua:</strong> ${prontuario.medicacaoContinua}</p>
                 <p><strong>Restrições alimentares:</strong> ${prontuario.restricoesAlimentares}</p>
-                <p><strong>Última atualização:</strong> ${prontuario.ultimaAtualizacao}</p>
+                <p>
+                   <strong>Última atualização:</strong>
+                    ${ultimaAtualizacaoFormatada}                       
+                </p>
             </c:when>
             <c:otherwise>
                 <p>Prontuário não encontrado.</p>

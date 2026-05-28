@@ -20,17 +20,13 @@
         <div class="hero-actions">
 
             <a class="btn btn-secondary"
-               href="${pageContext.request.contextPath}/app?entidade=tutor&acao=formNovo">
-
+                href="${pageContext.request.contextPath}/app?entidade=tutor&acao=formNovo">
                 Cadastrar tutor
-
             </a>
 
             <a class="btn btn-primary"
-               href="${pageContext.request.contextPath}/app?entidade=pet&acao=formNovo">
-
+                href="${pageContext.request.contextPath}/app?entidade=pet&acao=formNovo">
                 Cadastrar pet
-
             </a>
 
         </div>
@@ -38,38 +34,19 @@
         <div class="home-stats">
 
             <div class="home-stat-card">
-
                 <strong>${totalPets}</strong>
-
                 <span>Pets cadastrados</span>
-
             </div>
 
             <div class="home-stat-card">
-
                 <strong>${totalConsultas}</strong>
-
                 <span>Consultas registradas</span>
-
             </div>
 
             <div class="home-stat-card">
-
                 <strong>${totalTutores}</strong>
-
                 <span>Tutores ativos</span>
-
             </div>
-
-        </div>
-
-        <div class="system-status">
-
-            <span>✔ Sistema online</span>
-
-            <span>✔ API REST ativa</span>
-
-            <span>✔ Banco MySQL conectado</span>
 
         </div>
 

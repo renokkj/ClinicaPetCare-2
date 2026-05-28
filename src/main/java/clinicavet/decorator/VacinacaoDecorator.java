@@ -8,7 +8,7 @@ public class VacinacaoDecorator extends AtendimentoDecorator {
 
     @Override
     public String getDescricao() {
-        return atendimento.getDescricao() + " + Vacinacao";
+        return atendimento.getDescricao() + " + Vacinação";
     }
 
     @Override
