@@ -1,124 +1,181 @@
-# ClinicaPetCare
+# Clínica Veterinária Pet Care
 
-Sistema web para gerenciamento de clínica veterinária desenvolvido em Java Web utilizando arquitetura MVC, padrões de projeto GoF e integração com banco de dados MySQL.
+Sistema web desenvolvido em Java para gerenciamento de uma clínica veterinária, permitindo o controle de tutores, pets, consultas e prontuários de forma organizada e prática.
 
----
-
-# Objetivo do Projeto
-
-O projeto foi desenvolvido para a disciplina de Padrões de Projeto (PP), aplicando conceitos de:
-
-- Programação Orientada a Objetos
-- Design Patterns
-- SOLID
-- Arquitetura MVC
-- REST API
-- Testes Automatizados
-- Persistência em Banco de Dados
+O projeto foi desenvolvido com foco na aplicação de conceitos de Programação Orientada a Objetos, arquitetura MVC e padrões de projeto estudados durante a disciplina.
 
 ---
 
-# Tecnologias Utilizadas
+# Tecnologias utilizadas
 
 - Java 17
-- Jakarta EE
-- JSP / JSTL
-- Maven
-- Apache Tomcat 10
+- Jakarta Servlet
+- JSP + JSTL
+- Apache Tomcat
 - MySQL
-- JUnit 5
-- Mockito
-- Git / GitHub
+- Maven
+- HTML5
+- CSS3
 
 ---
 
-# Arquitetura Utilizada
+# Arquitetura
 
-- MVC (Model View Controller)
-- DAO (Data Access Object)
+O sistema segue o padrão MVC (Model-View-Controller), separando:
 
----
-
-# Design Patterns Implementados
-
-## Command Pattern
-Utilizado para centralizar ações do sistema e reduzir acoplamento entre controller e regras de negócio.
+- Model → entidades e regras de negócio
+- View → páginas JSP
+- Controller → controle das requisições e navegação
 
 ---
 
-## Factory Pattern
-Responsável pela criação dinâmica de comandos do sistema.
+# Estrutura do projeto
 
----
-
-## Decorator Pattern
-Utilizado para adicionar serviços veterinários dinamicamente aos atendimentos, como:
-
-- Vacinação
-- Exames
-- Medicação
-- Internação
-
-Sem modificar a classe principal do atendimento.
+```text
+clinicavet
+│
+├── api
+├── builder
+├── command
+│   ├── consulta
+│   ├── home
+│   ├── pet
+│   └── tutor
+├── controller
+├── dao
+├── dao.impl
+├── decorator
+├── exception
+├── factory
+├── model
+├── service
+├── service.triagem
+├── util
+└── tests
+```
 
 ---
 
 # Funcionalidades
 
-## Tutor
+## Tutores
 - Cadastro
 - Edição
 - Exclusão
-- Listagem
+- Visualização de detalhes
 
----
+## Pets
+- Cadastro completo
+- Controle de status vacinal
+- Informações clínicas
+- Triagem automática
+- Integração com prontuário
 
-## Pet
-- Cadastro
-- Edição
-- Exclusão
-- Listagem
-- Associação com tutor
-
----
+## Consultas
+- Cadastro de consultas
+- Controle de status
+- Visualização detalhada
+- Atendimento com serviços adicionais
 
 ## Prontuário
-- Criação automática
-- Histórico
-- Restrições
-- Medicações
-- Observações
+- Histórico clínico
+- Medicação contínua
+- Restrições alimentares
+- Controle de prioridade
+- Atualização automática
+
+## API REST
+
+Endpoint disponível:
+
+```text
+/api/pets
+```
+
+Permite:
+- listar pets
+- buscar pets por ID
+- retorno em JSON
+- tratamento de erros HTTP
 
 ---
 
-## Triagem Automática
-O sistema possui automação de triagem veterinária.
+# Padrões de projeto utilizados
 
-A triagem:
-- Atualiza informações automaticamente
-- Atualiza prontuário
-- Recalcula prioridade do atendimento
-- Registra horário da última avaliação
+## Command Pattern
+Responsável por separar as ações do sistema em comandos independentes.
 
----
-
-# Relacionamentos
-
-## 1:N
-Tutor → Pets
+Exemplos:
+- BuscarPetPorIdCommand
+- AtualizarPetCommand
+- BuscarConsultaPorIdCommand
 
 ---
 
-## 1:1
-Pet → Prontuário
+## Factory Pattern
+Aplicado no `CommandFactory` para centralizar a criação dos comandos.
 
 ---
 
-# REST API
+## Builder Pattern
+Aplicado no `PetBuilder` para facilitar a construção de objetos Pet.
 
-O sistema possui endpoint REST retornando JSON.
+---
 
-## Endpoint:
+## Decorator Pattern
+Utilizado para composição dinâmica dos atendimentos veterinários.
 
-```http
+Permite adicionar serviços extras à consulta, como:
+- exames
+- vacinação
 
+Principais classes:
+- Atendimento
+- AtendimentoDecorator
+- ConsultaBasica
+- ExameDecorator
+- VacinacaoDecorator
+
+---
+
+# Camada de serviços
+
+As regras de negócio foram separadas em classes específicas de serviço.
+
+Principais serviços:
+- PetService
+- TriagemAutomaticaService
+
+---
+
+# Testes
+
+O projeto possui testes unitários utilizando JUnit.
+
+Exemplos:
+- AtendimentoDecoratorTest
+- TriagemAutomaticaServiceTest
+
+---
+
+# Interface
+
+O sistema possui:
+- dashboard inicial
+- status coloridos
+- confirmação de exclusão
+- layout responsivo
+- organização em cards
+
+---
+
+# Objetivo acadêmico
+
+Projeto desenvolvido como atividade acadêmica da M2, aplicando conceitos de:
+- Programação Orientada a Objetos
+- Arquitetura MVC
+- Persistência de dados
+- Padrões de projeto
+- Desenvolvimento Web com Java
+
+---
